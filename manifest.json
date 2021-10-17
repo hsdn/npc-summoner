@@ -1,0 +1,15 @@
+{
+    "files": {
+        "C_REQUEST_CONTRACT.50.def": "2247897b86830f04c7b96500055087d9cb05070ffc8e21f679b797f760f03a89",
+        "README.md": "db16f4f34206dd41089ad5239ba02a0050541796ebb47bbc0602f256785fe5e0",
+        "index.js": "9b4222dc7a5896f1414e2c7e69534f84bdcdb1120a8f5ab3928b8e9c375d7050",
+        "module.json": "64197ef049ca5a009ae05946d8370cdc7e03e29d98aca58e7baacdbba0530a38",
+        "settings_migrator.js": "a22ce905dd14af4bf5cf2671dbe01eba3ebdb00dec64584c1fb7d1b5636b4e15"
+    },
+    "defs": {
+        "C_REQUEST_CONTRACT": 50,
+        "S_LOAD_TOPO": 3,
+        "S_NPC_MENU_SELECT": 1,
+        "S_SPAWN_NPC": 12
+    }
+}
