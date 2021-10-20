@@ -14,6 +14,10 @@ const DefaultSettings = {
 			"type": 26,
 			"value": 9
 		},
+		"cbank": {
+			"type": 26,
+			"value": 12
+		},
 		"store": {
 			"type": 9,
 			"value": 70310,
@@ -55,7 +59,7 @@ module.exports = function MigrateSettings(from_ver, to_ver, settings) {
 
 				for (const option in oldsettings) {
 					if (settings[option] !== undefined) {
-						settings[option] = oldsettings[option];
+						settings[option] = MigrateOption(settings[option], oldsettings[option], ["id"]);
 					}
 				}
 		}
@@ -63,3 +67,29 @@ module.exports = function MigrateSettings(from_ver, to_ver, settings) {
 		return settings;
 	}
 };
+
+function MigrateOption(option, oldoption, excludes) {
+	if (oldoption === undefined) {
+		oldoption = option;
+	}
+
+	if (Array.isArray(option)) {
+		for (const key of Object.keys(option)) {
+			option[key] = MigrateOption(option[key], oldoption[key], excludes);
+		}
+	}
+
+	if (Object.getPrototypeOf(option) === Object.prototype) {
+		option = { ...option, ...oldoption };
+
+		for (const key of Object.keys(option)) {
+			if (excludes.includes(key)) {
+				option[key] = oldoption[key] || null;
+			} else {
+				option[key] = MigrateOption(option[key], oldoption[key], excludes);
+			}
+		}
+	}
+
+	return option;
+}
