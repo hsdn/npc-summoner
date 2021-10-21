@@ -1,8 +1,15 @@
 module.exports = function NpcSummoner(mod) {
-	const path = require("path");
 	let zoneHw = false;
 
-	mod.dispatch.addDefinition("C_REQUEST_CONTRACT", 50, path.join(__dirname, "C_REQUEST_CONTRACT.50.def"));
+	mod.dispatch.addDefinition("C_REQUEST_CONTRACT", 50, [
+		["name", "refString"],
+		["data", "refBytes"],
+		["type", "int32"],
+		["target", "int64"],
+		["value", "int32"],
+		["name", "string"],
+		["data", "bytes"]
+	]);
 
 	Object.keys(mod.settings.npc).forEach(name => {
 		mod.command.add(name, () => {
