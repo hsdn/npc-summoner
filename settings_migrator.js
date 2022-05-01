@@ -1,7 +1,11 @@
+/* eslint-disable no-param-reassign */
 "use strict";
 
 const DefaultSettings = {
 	"npc": {
+		// For bank NPC.
+		// The "type" is a "type" from S_REQUEST_CONTRACT packet.
+		// The "value" is a "container" from S_VIEW_WARE_EX packet.
 		"bank": {
 			"type": 26,
 			"value": 1
@@ -18,23 +22,35 @@ const DefaultSettings = {
 			"type": 26,
 			"value": 12
 		},
+		// For other NPCs.
+		// You can use "npcsummoner" command to enable debug for get values.
 		"store": {
 			"type": 9,
 			"value": 70310,
-			"id": null,
-			"templateId": 2019
+			"gameId": null,
+			"templateId": 2019,
+			"huntingZoneId": 183
 		},
 		"sstore": {
 			"type": 9,
 			"value": 250,
-			"id": null,
-			"templateId": 2109
+			"gameId": null,
+			"templateId": 2109,
+			"huntingZoneId": 183
+		},
+		"bel": {
+			"type": 50,
+			"value": 141,
+			"gameId": null,
+			"templateId": 2045,
+			"huntingZoneId": 183
 		},
 		"vg": {
 			"type": 49,
 			"value": 609,
-			"id": null,
-			"templateId": 2058
+			"gameId": null,
+			"templateId": 2058,
+			"huntingZoneId": 183
 		}
 	}
 };
@@ -59,7 +75,7 @@ module.exports = function MigrateSettings(from_ver, to_ver, settings) {
 
 				for (const option in oldsettings) {
 					if (settings[option] !== undefined) {
-						settings[option] = MigrateOption(settings[option], oldsettings[option], ["id"]);
+						settings[option] = MigrateOption(settings[option], oldsettings[option], ["gameId"]);
 					}
 				}
 		}
@@ -80,8 +96,6 @@ function MigrateOption(option, oldoption, excludes) {
 	}
 
 	if (Object.getPrototypeOf(option) === Object.prototype) {
-		option = { ...option, ...oldoption };
-
 		for (const key of Object.keys(option)) {
 			if (excludes.includes(key)) {
 				option[key] = oldoption[key] || null;

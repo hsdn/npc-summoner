@@ -1,5 +1,6 @@
 module.exports = function NpcSummoner(mod) {
-	let zoneHw = false;
+	let debug = false;
+	let debugData = [];
 
 	mod.dispatch.addDefinition("C_REQUEST_CONTRACT", 50, [
 		["name", "refString"],
@@ -18,35 +19,60 @@ module.exports = function NpcSummoner(mod) {
 
 			buffer.writeUInt32LE(npc.value);
 			mod.send("C_REQUEST_CONTRACT", 50, {
-				type: npc.type,
-				target: npc.id,
-				value: npc.value,
-				name: "",
-				data: buffer
+				"type": npc.type,
+				"target": npc.gameId,
+				"value": npc.value,
+				"name": "",
+				"data": buffer
 			});
 		});
 	});
 
 	mod.command.add("broker", () =>
-		mod.toClient("S_NPC_MENU_SELECT", 1, { type: 28 })
+		mod.send("S_NPC_MENU_SELECT", 1, { "type": 28 })
 	);
 
-	mod.hook("S_LOAD_TOPO", 3, event => {
-		zoneHw = event.zone === 7031;
+	mod.command.add("npcsummoner", () => {
+		debug = !debug;
+		mod.command.message(`Module debug ${debug ? "enabled" : "disabled"}`);
 	});
 
-	mod.hook("S_SPAWN_NPC", 12, packet => {
-		if (zoneHw) {
-			const npc = Object.values(mod.settings.npc).find(e => e.templateId !== undefined && e.templateId === packet.templateId);
+	mod.hook("S_SPAWN_NPC", mod.majorPatchVersion >= 101 ? 12 : 11, event => {
+		const npc = Object.values(mod.settings.npc).find(n =>
+			n.huntingZoneId === event.huntingZoneId &&
+			n.templateId === event.templateId
+		);
 
-			if (npc) {
-				npc.id = parseInt(packet.gameId);
-			}
+		if (npc) {
+			npc.gameId = parseInt(event.gameId);
 		}
 	});
 
+	mod.hook("S_DIALOG", 2, event => {
+		if (!debug) return;
+
+		debugData = [
+			"Detected NPC:",
+			`   "value": ${event.options[0]?.type}`,
+			`   "gameId": ${event.gameId}`,
+			`   "templateId": ${event.questId}`,
+			`   "huntingZoneId": ${event.huntingZoneId}`
+		];
+	});
+
+	mod.hook("S_REQUEST_CONTRACT", 1, event => {
+		if (!debug) return;
+
+		debugData.push(`   "type": ${event.type}`);
+		debugData.forEach(data => {
+			console.log(data);
+			mod.command.message(data);
+		});
+
+		debugData = [];
+	});
+
 	this.destructor = () => {
-		zoneHw = false;
 		mod.command.remove(["broker", ...Object.keys(mod.settings.npc)]);
 	};
 };

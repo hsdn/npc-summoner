@@ -4,12 +4,12 @@
     "description": "Summon any NPC (merchant, bank, broker) from anywhere",
     "options": {
         "niceName": "NPC Summoner",
-        "settingsVersion": 2,
+        "settingsVersion": 3,
         "settingsFile": "config.json",
         "reloadable": true,
         "settingsMigrator": "settings_migrator.js"
     },
     "servers": ["https://raw.githubusercontent.com/hsdn/npc-summoner/master/"],
     "disableAutoUpdate": false,
-    "version": "10/22/2021"
+    "version": "5/1/2022"
 }

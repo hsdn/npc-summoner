@@ -13,6 +13,7 @@ Toolbox(/8) | Command description
 **cbank** | Wardrobe (Costume Bank)
 **store** | Merchant
 **sstore** | Specialty Store
+**bel** | Bellicarium Credit Merchant
 **vg** | Vanguard Initiative Credit Merchant
 
 **Note:** You need to visit the Highwatch after the first installation of the module, as well as after the release of a new patch of the game to update the NPC identifiers.
