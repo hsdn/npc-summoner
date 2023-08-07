@@ -26,35 +26,44 @@ const DefaultSettings = {
 		// You can use "npcsummoner" command to enable debug for get values.
 		"store": {
 			"type": 9,
-			"value": 70310,
+			"value": null,
 			"gameId": null,
-			"templateId": 2019,
-			"huntingZoneId": 183
+			"opts": [
+				{ "templateId": 2019, "huntingZoneId": 183, "_value": 70310 },
+				{ "templateId": 2022, "huntingZoneId": 58, "_value": 58001 }
+			]
 		},
 		"sstore": {
 			"type": 9,
-			"value": 250,
+			"value": null,
 			"gameId": null,
-			"templateId": 2109,
-			"huntingZoneId": 183
+			"opts": [
+				{ "templateId": 2109, "huntingZoneId": 183, "_value": 250 },
+				{ "templateId": 2010, "huntingZoneId": 58, "_value": 58002 }
+			]
 		},
 		"bel": {
 			"type": 50,
-			"value": 141,
+			"value": null,
 			"gameId": null,
-			"templateId": 2045,
-			"huntingZoneId": 183
+			"opts": [
+				{ "templateId": 2045, "huntingZoneId": 183, "_value": 141 },
+				{ "templateId": 2036, "huntingZoneId": 58, "_value": 141 }
+			]
 		},
 		"vg": {
 			"type": 49,
-			"value": 609,
+			"value": null,
 			"gameId": null,
-			"templateId": 2058,
-			"huntingZoneId": 183
+			"opts": [
+				{ "templateId": 2058, "huntingZoneId": 183, "_value": 609 },
+				{ "templateId": 2009, "huntingZoneId": 58, "_value": 609 }
+			]
 		}
 	}
 };
 
+// Settings Migrator Extended v2.1
 module.exports = function MigrateSettings(from_ver, to_ver, settings) {
 	if (from_ver === undefined) return { ...DefaultSettings, ...settings };
 	else if (from_ver === null) return DefaultSettings;
@@ -68,23 +77,19 @@ module.exports = function MigrateSettings(from_ver, to_ver, settings) {
 		}
 
 		const oldsettings = settings;
+		settings = Object.assign(DefaultSettings, {});
 
-		switch (to_ver) {
-			default:
-				settings = Object.assign(DefaultSettings, {});
-
-				for (const option in oldsettings) {
-					if (settings[option] !== undefined) {
-						settings[option] = MigrateOption(settings[option], oldsettings[option], ["gameId"]);
-					}
-				}
+		for (const option in oldsettings) {
+			if (settings[option] !== undefined) {
+				settings[option] = MigrateOption(settings[option], oldsettings[option], ["value", "gameId"]);
+			}
 		}
 
 		return settings;
 	}
 };
 
-function MigrateOption(option, oldoption, excludes) {
+function MigrateOption(option, oldoption, excludes = []) {
 	if (oldoption === undefined) {
 		oldoption = option;
 	}
@@ -93,9 +98,7 @@ function MigrateOption(option, oldoption, excludes) {
 		for (const key of Object.keys(option)) {
 			option[key] = MigrateOption(option[key], oldoption[key], excludes);
 		}
-	}
-
-	if (Object.getPrototypeOf(option) === Object.prototype) {
+	} else if (option !== null && Object.getPrototypeOf(option) === Object.prototype) {
 		for (const key of Object.keys(option)) {
 			if (excludes.includes(key)) {
 				option[key] = oldoption[key] || null;
@@ -103,6 +106,8 @@ function MigrateOption(option, oldoption, excludes) {
 				option[key] = MigrateOption(option[key], oldoption[key], excludes);
 			}
 		}
+	} else {
+		option = oldoption;
 	}
 
 	return option;

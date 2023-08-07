@@ -4,7 +4,7 @@
     "description": "Summon any NPC (merchant, bank, broker) from anywhere",
     "options": {
         "niceName": "NPC Summoner",
-        "settingsVersion": 3,
+        "settingsVersion": 4,
         "settingsFile": "config.json",
         "reloadable": true,
         "settingsMigrator": "settings_migrator.js"

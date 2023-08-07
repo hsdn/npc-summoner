@@ -38,14 +38,15 @@ module.exports = function NpcSummoner(mod) {
 	});
 
 	mod.hook("S_SPAWN_NPC", mod.majorPatchVersion >= 101 ? 12 : 11, event => {
-		const npc = Object.values(mod.settings.npc).find(n =>
-			n.huntingZoneId === event.huntingZoneId &&
-			n.templateId === event.templateId
-		);
+		Object.entries(mod.settings.npc).forEach(([name, npc]) => {
+			if (npc.opts === undefined) return;
+			const opt = npc.opts.find(option => option.templateId === event.templateId && option.huntingZoneId === event.huntingZoneId);
 
-		if (npc) {
-			npc.gameId = parseInt(event.gameId);
-		}
+			if (opt) {
+				mod.settings.npc[name].value = opt._value;
+				mod.settings.npc[name].gameId = parseInt(event.gameId);
+			}
+		});
 	});
 
 	mod.hook("S_DIALOG", 2, event => {

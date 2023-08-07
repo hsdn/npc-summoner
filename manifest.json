@@ -1,15 +1,8 @@
 {
     "files": {
         "README.md": "0f33c2024c759e629dc82331a4e5170eb3971d187718cd2463927398bdf31b53",
-        "index.js": "30f6cb173e1f97c6a0259815b7500b3216e58ebbdc20f3356f678613ed074a3b",
-        "module.json": "8e134de2ba3fddfd99eef15c49458b9033d69b94028f181d207e34b56f6a419c",
-        "settings_migrator.js": "b5e0675a2dfad88da4ce517fa2c8c66916133e7d380be9008b8268d2fe2baf00"
-    },
-    "defs": {
-        "C_REQUEST_CONTRACT": 50,
-        "S_DIALOG": 2,
-        "S_NPC_MENU_SELECT": 1,
-        "S_REQUEST_CONTRACT": 1,
-        "S_SPAWN_NPC": 11
+        "index.js": "78462f6adf8eaf10c717fa371a6be2d006cecb967ab0f07eec3abac767cec2ce",
+        "module.json": "8202f4ec7112fdceb67daa551f13203567a523119688ea6587ff554660991fc0",
+        "settings_migrator.js": "e40368571e91b05acc9ba26d359c06c70f4e552a5883d3a9334457febe503e3c"
     }
 }
