@@ -30,7 +30,16 @@ const DefaultSettings = {
 			"gameId": null,
 			"opts": [
 				{ "templateId": 2019, "huntingZoneId": 183, "_value": 70310 },
-				{ "templateId": 2022, "huntingZoneId": 58, "_value": 58001 }
+				{ "templateId": 2022, "huntingZoneId": 58, "_value": 58001 },
+				{ "templateId": 5001, "huntingZoneId": 13, "_value": 16091 },
+				{ "templateId": 5101, "huntingZoneId": 13, "_value": 16092 },
+				{ "templateId": 5201, "huntingZoneId": 13, "_value": 16092 },
+				{ "templateId": 5301, "huntingZoneId": 13, "_value": 16092 },
+				{ "templateId": 1015, "huntingZoneId": 3051, "_value": 2851665 },
+				{ "templateId": 1037, "huntingZoneId": 3051, "_value": 2851665 },
+				{ "templateId": 1222, "huntingZoneId": 3051, "_value": 2851665 },
+				{ "templateId": 1303, "huntingZoneId": 3051, "_value": 2851665 },
+				{ "templateId": 1408, "huntingZoneId": 3051, "_value": 16094 }
 			]
 		},
 		"sstore": {
@@ -39,7 +48,8 @@ const DefaultSettings = {
 			"gameId": null,
 			"opts": [
 				{ "templateId": 2109, "huntingZoneId": 183, "_value": 250 },
-				{ "templateId": 2010, "huntingZoneId": 58, "_value": 58002 }
+				{ "templateId": 2010, "huntingZoneId": 58, "_value": 58002 },
+				{ "templateId": 1385, "huntingZoneId": 3051, "_value": 58002 }
 			]
 		},
 		"bel": {
@@ -48,7 +58,8 @@ const DefaultSettings = {
 			"gameId": null,
 			"opts": [
 				{ "templateId": 2045, "huntingZoneId": 183, "_value": 141 },
-				{ "templateId": 2036, "huntingZoneId": 58, "_value": 141 }
+				{ "templateId": 2036, "huntingZoneId": 58, "_value": 141 },
+				{ "templateId": 1414, "huntingZoneId": 3051, "_value": 141 }
 			]
 		},
 		"vg": {
@@ -57,7 +68,8 @@ const DefaultSettings = {
 			"gameId": null,
 			"opts": [
 				{ "templateId": 2058, "huntingZoneId": 183, "_value": 609 },
-				{ "templateId": 2009, "huntingZoneId": 58, "_value": 609 }
+				{ "templateId": 2009, "huntingZoneId": 58, "_value": 609 },
+				{ "templateId": 1382, "huntingZoneId": 3051, "_value": 609 }
 			]
 		}
 	}
